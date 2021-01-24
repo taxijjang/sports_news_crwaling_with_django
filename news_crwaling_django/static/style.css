@@ -1,0 +1,11 @@
+.news-card:hover{
+    background-color: gold;
+}
+
+.news-title{
+    text-align: center;
+}
+
+.news-rank{
+    text-align: center;
+}

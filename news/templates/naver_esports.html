@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+{% block content %}
+{% for esports in esports_list %}
+    <div class="'col-md-5 mt-2 col-lg-9 order-md-last">
+        <ul class="list-group mb-3">
+            <li class="news-card list-group-item" onclick="location.href='{{esports.url}}'">
+                <span class="news-rank">{{esports.rank}}위</span>
+                <div class="news-title">
+                    {{esports.title}}
+                </div>
+            </li>
+        </ul>
+    </div>
+{% endfor%}
+{% endblock %}
