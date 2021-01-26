@@ -1,5 +1,5 @@
 import os
-
+from .secret import SECRET
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -7,7 +7,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'e5i*fi+hj90di%p2-9ia&y#b4br5cd$_t&2=^ffv+zk+*57h7('
+SECRET_KEY = SECRET['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -30,9 +30,11 @@ INSTALLED_APPS = [
 
     # Third Party
     'bootstrap4',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -68,13 +70,16 @@ WSGI_APPLICATION = 'news_crwaling_django.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # }
     'default': {
-        'ENGINE': 'djongo',
-        'NAME': 'news_crwaling',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'sports_news',
+        'USER': 'root',
+        'PASSWORD': 'schwisestudy',
+        'HOST': 'wisestudy.cinqw7ouyrxc.ap-northeast-2.rds.amazonaws.com',
+        'PORT': 3306,
+        'OPTIONS': {
+            'init_command': 'SET sql_mode="STRICT_TRANS_TABLES"'
+        }
     }
 }
 
@@ -112,11 +117,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-print(BASE_DIR)
-print(os.path.join(BASE_DIR, 'news_crwaling_django', 'static'))
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'news_crwaling_django', 'static')
 ]
 #STATIC_ROOT = os.path.join(BASE_DIR, 'news_crwaling_django','static')
 
+INTERNAL_IPS = ('127.0.0.1',)
